@@ -7,9 +7,11 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] Vector3 spawnPos = new Vector3(25, 0, 0);
     [SerializeField] float startDelay = 2.0f;
     [SerializeField] float repeatRate = 2.0f;
+    private Move PlayerControllerScript;
     
     void Start()
     {
+        PlayerControllerScript = GameObject.Find("Player").GetComponent<Move>();
         InvokeRepeating("SpawnObstacle", startDelay , repeatRate);
     }
 
@@ -21,7 +23,11 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnObstacle()
     {
-        Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        if ( PlayerControllerScript.gameOver == false)
+        {
+            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        }
+        
     }
 
     

@@ -6,6 +6,7 @@ public class Move : MonoBehaviour
     [SerializeField] private float jumpStr;
     [SerializeField] private float gravityStr;
     public bool isOnGround = true;
+    public bool gameOver;
 
     void Start()
     {
@@ -28,6 +29,15 @@ public class Move : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isOnGround = true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }
+
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            gameOver = true;
+            Debug.Log("Game Over!");
+        }
     }
 }
